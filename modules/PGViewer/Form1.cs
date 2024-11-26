@@ -62,7 +62,7 @@ namespace cv1
 			table.Columns.Add("File Name");
 			table.Columns.Add("File Path");
 
-			string[] files = Directory.GetFiles("../../data/cvicenie02", "*.txt");
+			string[] files = Directory.GetFiles("../../data", "*.txt");
 
 			foreach (var file in files)
 			{
