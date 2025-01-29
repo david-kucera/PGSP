@@ -128,7 +128,7 @@ namespace PGViewer
 
 			if (checkBox_ApplyGaussianBlur.Checked)
 			{
-				originalImage = ImageProcessor.ApplyGaussianBlur(originalImage, 5, (double)numericUpDown_SigmaValue.Value);
+				originalImage = Gauss.ApplyGaussianBlur(originalImage, (double)numericUpDown_SigmaValue.Value);
 				gaussianBlurApplied = true;
 				doubleBufferPanelDrawing.Invalidate();
 			}
@@ -149,7 +149,7 @@ namespace PGViewer
 		{
 			if (!gaussianBlurApplied) return;
 
-			originalImage = ImageProcessor.ApplyGaussianBlur(originalImage, 5, (double)numericUpDown_SigmaValue.Value);
+			originalImage = Gauss.ApplyGaussianBlur(originalImage, (double)numericUpDown_SigmaValue.Value);
 			doubleBufferPanelDrawing.Invalidate();
 		}
 

@@ -2,6 +2,7 @@
 {
 	public static class Bezier
 	{
+		#region Public functions
 		public static List<PointF> FitCubicBezierCurve(List<Point> points)
 		{
 			List<PointF> bezierPoints = [];
@@ -30,6 +31,6 @@
 
 			return bezierPoints;
 		}
-
+		#endregion //Public functions
 	}
 }
