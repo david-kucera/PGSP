@@ -67,6 +67,76 @@
 
 			return histogramBitmap;
 		}
+
+		public List<Point> ExtractLineCenters(int threshold = 128)
+		{
+			List<Point> centers = new();
+
+			for (int y = 0; y < Height; y++)
+			{
+				List<int> blackPixelPositions = new();
+
+				for (int x = 0; x < Width; x++)
+				{
+					if (Data[y * Width + x] < threshold)
+						blackPixelPositions.Add(x);
+				}
+
+				if (blackPixelPositions.Count > 0)
+				{
+					int centerX = (int)blackPixelPositions.Average();
+					centers.Add(new Point(centerX, y));
+				}
+			}
+
+			return centers;
+		}
+
+		public void ApplyThreshold()
+		{
+			int threshold = OtsuThreshold();
+			for (int i = 0; i < Data.Length; i++) Data[i] = Data[i] > threshold ? (byte)255 : (byte)0;
+		}
 		#endregion //Public functions
+
+		#region Private functions
+		private int OtsuThreshold()
+		{
+			Histogram = new int[256];
+			for (int i = 0; i < Data.Length; i++) Histogram[Data[i]]++;
+
+			int totalPixels = Width * Height;
+			float sum = 0;
+			for (int i = 0; i < 256; i++) sum += i * Histogram[i];
+
+			float sumB = 0;
+			int wB = 0;
+			int wF = 0;
+			float varMax = 0;
+			int threshold = 0;
+
+			for (int i = 0; i < 256; i++)
+			{
+				wB += Histogram[i];
+				if (wB == 0) continue;
+
+				wF = totalPixels - wB;
+				if (wF == 0) break;
+
+				sumB += i * Histogram[i];
+				float mB = sumB / wB;
+				float mF = (sum - sumB) / wF;
+				float varBetween = wB * wF * (mB - mF) * (mB - mF);
+
+				if (varBetween > varMax)
+				{
+					varMax = varBetween;
+					threshold = i;
+				}
+			}
+
+			return threshold;
+		}
+		#endregion // Private functions
 	}
 }

@@ -29,26 +29,33 @@
 		private void InitializeComponent()
 		{
 			panelTools = new Panel();
-			checkBox1 = new CheckBox();
+			numericUpDown_SigmaValue = new NumericUpDown();
+			label3 = new Label();
+			checkBox_ApplyGaussianBlur = new CheckBox();
 			label2 = new Label();
 			label1 = new Label();
-			numericUpDown2 = new NumericUpDown();
-			numericUpDown1 = new NumericUpDown();
+			numericUpDown_ImageHeight = new NumericUpDown();
+			numericUpDown_ImageWidth = new NumericUpDown();
 			comboBox1 = new ComboBox();
 			doubleBufferPanelDrawing = new DoubleBufferPanel();
+			checkBoxApplyOtsuThreshold = new CheckBox();
 			panelTools.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
-			((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+			((System.ComponentModel.ISupportInitialize)numericUpDown_SigmaValue).BeginInit();
+			((System.ComponentModel.ISupportInitialize)numericUpDown_ImageHeight).BeginInit();
+			((System.ComponentModel.ISupportInitialize)numericUpDown_ImageWidth).BeginInit();
 			SuspendLayout();
 			// 
 			// panelTools
 			// 
 			panelTools.BackColor = SystemColors.AppWorkspace;
-			panelTools.Controls.Add(checkBox1);
+			panelTools.Controls.Add(checkBoxApplyOtsuThreshold);
+			panelTools.Controls.Add(numericUpDown_SigmaValue);
+			panelTools.Controls.Add(label3);
+			panelTools.Controls.Add(checkBox_ApplyGaussianBlur);
 			panelTools.Controls.Add(label2);
 			panelTools.Controls.Add(label1);
-			panelTools.Controls.Add(numericUpDown2);
-			panelTools.Controls.Add(numericUpDown1);
+			panelTools.Controls.Add(numericUpDown_ImageHeight);
+			panelTools.Controls.Add(numericUpDown_ImageWidth);
 			panelTools.Controls.Add(comboBox1);
 			panelTools.Dock = DockStyle.Left;
 			panelTools.Location = new Point(0, 0);
@@ -57,16 +64,35 @@
 			panelTools.Size = new Size(256, 841);
 			panelTools.TabIndex = 0;
 			// 
-			// checkBox1
+			// numericUpDown_SigmaValue
 			// 
-			checkBox1.AutoSize = true;
-			checkBox1.Location = new Point(27, 186);
-			checkBox1.Name = "checkBox1";
-			checkBox1.Size = new Size(195, 29);
-			checkBox1.TabIndex = 5;
-			checkBox1.Text = "Apply Gaussian Blur";
-			checkBox1.UseVisualStyleBackColor = true;
-			checkBox1.CheckedChanged += checkBox1_CheckedChanged_1;
+			numericUpDown_SigmaValue.Location = new Point(147, 228);
+			numericUpDown_SigmaValue.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			numericUpDown_SigmaValue.Name = "numericUpDown_SigmaValue";
+			numericUpDown_SigmaValue.Size = new Size(69, 31);
+			numericUpDown_SigmaValue.TabIndex = 7;
+			numericUpDown_SigmaValue.Value = new decimal(new int[] { 1, 0, 0, 0 });
+			numericUpDown_SigmaValue.ValueChanged += UpDownNum_Sigma_Changed;
+			// 
+			// label3
+			// 
+			label3.AutoSize = true;
+			label3.Location = new Point(24, 232);
+			label3.Name = "label3";
+			label3.Size = new Size(108, 25);
+			label3.TabIndex = 6;
+			label3.Text = "Sigma value";
+			// 
+			// checkBox_ApplyGaussianBlur
+			// 
+			checkBox_ApplyGaussianBlur.AutoSize = true;
+			checkBox_ApplyGaussianBlur.Location = new Point(28, 188);
+			checkBox_ApplyGaussianBlur.Name = "checkBox_ApplyGaussianBlur";
+			checkBox_ApplyGaussianBlur.Size = new Size(195, 29);
+			checkBox_ApplyGaussianBlur.TabIndex = 5;
+			checkBox_ApplyGaussianBlur.Text = "Apply Gaussian Blur";
+			checkBox_ApplyGaussianBlur.UseVisualStyleBackColor = true;
+			checkBox_ApplyGaussianBlur.CheckedChanged += CheckBox_ApplyGaussianBlur_Changed;
 			// 
 			// label2
 			// 
@@ -80,33 +106,33 @@
 			// label1
 			// 
 			label1.AutoSize = true;
-			label1.Location = new Point(30, 89);
+			label1.Location = new Point(24, 89);
 			label1.Name = "label1";
 			label1.Size = new Size(111, 25);
 			label1.TabIndex = 3;
 			label1.Text = "Image width";
 			// 
-			// numericUpDown2
+			// numericUpDown_ImageHeight
 			// 
-			numericUpDown2.Location = new Point(147, 133);
-			numericUpDown2.Maximum = new decimal(new int[] { 1024, 0, 0, 0 });
-			numericUpDown2.Minimum = new decimal(new int[] { 16, 0, 0, 0 });
-			numericUpDown2.Name = "numericUpDown2";
-			numericUpDown2.Size = new Size(69, 31);
-			numericUpDown2.TabIndex = 2;
-			numericUpDown2.Value = new decimal(new int[] { 512, 0, 0, 0 });
-			numericUpDown2.ValueChanged += numericUpDown2_ValueChanged;
+			numericUpDown_ImageHeight.Location = new Point(147, 133);
+			numericUpDown_ImageHeight.Maximum = new decimal(new int[] { 1024, 0, 0, 0 });
+			numericUpDown_ImageHeight.Minimum = new decimal(new int[] { 16, 0, 0, 0 });
+			numericUpDown_ImageHeight.Name = "numericUpDown_ImageHeight";
+			numericUpDown_ImageHeight.Size = new Size(69, 31);
+			numericUpDown_ImageHeight.TabIndex = 2;
+			numericUpDown_ImageHeight.Value = new decimal(new int[] { 512, 0, 0, 0 });
+			numericUpDown_ImageHeight.ValueChanged += UpDownNum_ImageHeight_Changed;
 			// 
-			// numericUpDown1
+			// numericUpDown_ImageWidth
 			// 
-			numericUpDown1.Location = new Point(147, 83);
-			numericUpDown1.Maximum = new decimal(new int[] { 1024, 0, 0, 0 });
-			numericUpDown1.Minimum = new decimal(new int[] { 16, 0, 0, 0 });
-			numericUpDown1.Name = "numericUpDown1";
-			numericUpDown1.Size = new Size(69, 31);
-			numericUpDown1.TabIndex = 1;
-			numericUpDown1.Value = new decimal(new int[] { 512, 0, 0, 0 });
-			numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
+			numericUpDown_ImageWidth.Location = new Point(147, 83);
+			numericUpDown_ImageWidth.Maximum = new decimal(new int[] { 1024, 0, 0, 0 });
+			numericUpDown_ImageWidth.Minimum = new decimal(new int[] { 16, 0, 0, 0 });
+			numericUpDown_ImageWidth.Name = "numericUpDown_ImageWidth";
+			numericUpDown_ImageWidth.Size = new Size(69, 31);
+			numericUpDown_ImageWidth.TabIndex = 1;
+			numericUpDown_ImageWidth.Value = new decimal(new int[] { 512, 0, 0, 0 });
+			numericUpDown_ImageWidth.ValueChanged += UpDownNum_ImageWidth_Changed;
 			// 
 			// comboBox1
 			// 
@@ -131,6 +157,17 @@
 			doubleBufferPanelDrawing.MouseMove += doubleBufferPanelDrawing_MouseMove;
 			doubleBufferPanelDrawing.MouseUp += doubleBufferPanelDrawing_MouseUp;
 			// 
+			// checkBox1
+			// 
+			checkBoxApplyOtsuThreshold.AutoSize = true;
+			checkBoxApplyOtsuThreshold.Location = new Point(28, 274);
+			checkBoxApplyOtsuThreshold.Name = "checkBoxApplyOtsuThreshold";
+			checkBoxApplyOtsuThreshold.Size = new Size(208, 29);
+			checkBoxApplyOtsuThreshold.TabIndex = 8;
+			checkBoxApplyOtsuThreshold.Text = "Apply Otsu threshold";
+			checkBoxApplyOtsuThreshold.UseVisualStyleBackColor = true;
+			checkBoxApplyOtsuThreshold.CheckedChanged += checkBox_ApplyOtsuTreshold_Changed;
+			// 
 			// Form1
 			// 
 			AutoScaleDimensions = new SizeF(10F, 25F);
@@ -144,8 +181,9 @@
 			Load += Form1_Load;
 			panelTools.ResumeLayout(false);
 			panelTools.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
-			((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+			((System.ComponentModel.ISupportInitialize)numericUpDown_SigmaValue).EndInit();
+			((System.ComponentModel.ISupportInitialize)numericUpDown_ImageHeight).EndInit();
+			((System.ComponentModel.ISupportInitialize)numericUpDown_ImageWidth).EndInit();
 			ResumeLayout(false);
 		}
 
@@ -155,9 +193,12 @@
         private DoubleBufferPanel doubleBufferPanelDrawing;
 		private ComboBox comboBox1;
 		private Label label1;
-		private NumericUpDown numericUpDown2;
-		private NumericUpDown numericUpDown1;
+		private NumericUpDown numericUpDown_ImageHeight;
+		private NumericUpDown numericUpDown_ImageWidth;
 		private Label label2;
-		private CheckBox checkBox1;
+		private CheckBox checkBox_ApplyGaussianBlur;
+		private NumericUpDown numericUpDown_SigmaValue;
+		private Label label3;
+		private CheckBox checkBoxApplyOtsuThreshold;
 	}
 }

@@ -5,6 +5,7 @@ namespace PGViewer
 	public partial class Form1 : Form
 	{
 		private GrayscaleImage? originalImage = null;
+		private GrayscaleImage? processedImage = null;
 		private bool gaussianBlurApplied = false;
 		private int imageWidth;
 		private int imageHeight;
@@ -62,8 +63,8 @@ namespace PGViewer
 
 			if (string.IsNullOrEmpty(selectedString)) return;
 
-			imageHeight = (int)numericUpDown2.Value;
-			imageWidth = (int)numericUpDown1.Value;
+			imageHeight = (int)numericUpDown_ImageHeight.Value;
+			imageWidth = (int)numericUpDown_ImageWidth.Value;
 
 			ReloadImage();
 		}
@@ -91,33 +92,36 @@ namespace PGViewer
 
 		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			checkBox1.Checked = false;
+			checkBox_ApplyGaussianBlur.Checked = false;
 			ReloadImage();
 		}
 
-		private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+		private void UpDownNum_ImageWidth_Changed(object sender, EventArgs e)
 		{
-			imageWidth = (int)numericUpDown1.Value;
+			imageWidth = (int)numericUpDown_ImageWidth.Value;
 			ReloadImage();
 		}
 
-		private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+		private void UpDownNum_ImageHeight_Changed(object sender, EventArgs e)
 		{
-			imageHeight = (int)numericUpDown2.Value;
+			imageHeight = (int)numericUpDown_ImageHeight.Value;
 			ReloadImage();
 		}
 
-		private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
+		private void CheckBox_ApplyGaussianBlur_Changed(object sender, EventArgs e)
 		{
 			if (originalImage == null) return;
 
-			if (checkBox1.Checked)
+			if (checkBox_ApplyGaussianBlur.Checked)
 			{
-				originalImage = ImageProcessor.ApplyGaussianBlur(originalImage, 5, 1.5);
+				originalImage = ImageProcessor.ApplyGaussianBlur(originalImage, 5, (double)numericUpDown_SigmaValue.Value);
+				gaussianBlurApplied = true;
 			}
 			else
 			{
 				ReloadImage();
+				numericUpDown_SigmaValue.Value = 1;
+				gaussianBlurApplied = false;
 			}
 
 			doubleBufferPanelDrawing.Invalidate();
@@ -126,6 +130,22 @@ namespace PGViewer
 		private void doubleBufferPanelDrawing_MouseDown(object? sender, MouseEventArgs e)
 		{
 			return;
+		}
+
+		private void UpDownNum_Sigma_Changed(object sender, EventArgs e)
+		{
+			if (!gaussianBlurApplied) return;
+
+			originalImage = ImageProcessor.ApplyGaussianBlur(originalImage, 5, (double)numericUpDown_SigmaValue.Value);
+			doubleBufferPanelDrawing.Invalidate();
+		}
+
+		private void checkBox_ApplyOtsuTreshold_Changed(object sender, EventArgs e)
+		{
+			if (originalImage == null) return;
+
+			if (checkBoxApplyOtsuThreshold.Checked) originalImage.ApplyThreshold();
+			else ReloadImage();
 		}
 	}
 }
