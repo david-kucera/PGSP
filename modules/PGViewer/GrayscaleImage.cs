@@ -74,26 +74,66 @@
 
 		public List<Point> ExtractLineCenters()
 		{
-			List<Point> centers = new();
+			List<Point> midline = [];
 
 			for (int y = 0; y < Height; y++)
 			{
-				List<int> blackPixelPositions = new();
+				List<int> whitePixelStart = [];
+				List<int> whitePixelEnd = [];
 
+				bool whiteSegment = false;
 				for (int x = 0; x < Width; x++)
 				{
-					if (Data[y * Width + x] < _threshold)
-						blackPixelPositions.Add(x);
+					if (Data[y * Width + x] == 255)
+					{
+						if (whiteSegment) continue;
+						whitePixelStart.Add(x);
+						whiteSegment = true;
+					}
+					else
+					{
+						if (!whiteSegment) continue;
+						whitePixelEnd.Add(x - 1);
+						whiteSegment = false;
+					}
 				}
 
-				if (blackPixelPositions.Count > 0)
+				if (whiteSegment) whitePixelEnd.Add(Width - 1);
+
+				if (whitePixelStart.Count == 2 && whitePixelEnd.Count == 2)
 				{
-					int centerX = (int)blackPixelPositions.Average();
-					centers.Add(new Point(centerX, y));
+					int leftSegmentCenter = (whitePixelStart[0] + whitePixelEnd[0]) / 2;
+					int rightSegmentCenter = (whitePixelStart[1] + whitePixelEnd[1]) / 2;
+
+					int midX = (leftSegmentCenter + rightSegmentCenter) / 2;
+					midline.Add(new Point(midX, y));
+				}
+				else if (whitePixelStart.Count > 2)
+				{
+					int maxDist = int.MinValue;
+					int midX = 0;
+
+					for (int i = 0; i < whitePixelStart.Count - 1; i++)
+					{
+						for (int j = i + 1; j < whitePixelStart.Count; j++)
+						{
+							int leftCenter = (whitePixelStart[i] + whitePixelEnd[i]) / 2;
+							int rightCenter = (whitePixelStart[j] + whitePixelEnd[j]) / 2;
+
+							int dist = Math.Abs(leftCenter - rightCenter);
+							if (dist > maxDist)
+							{
+								maxDist = dist;
+								midX = (leftCenter + rightCenter) / 2;
+							}
+						}
+					}
+
+					midline.Add(new Point(midX, y));
 				}
 			}
 
-			return centers;
+			return midline;
 		}
 
 		public void ApplyThreshold()
