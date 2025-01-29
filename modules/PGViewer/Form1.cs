@@ -6,6 +6,7 @@ namespace PGViewer
 	{
 		private GrayscaleImage? originalImage = null;
 		private bool gaussianBlurApplied = false;
+		private List<PointF> _bezierPoints = new List<PointF>();
 		private int imageWidth;
 		private int imageHeight;
 
@@ -20,6 +21,7 @@ namespace PGViewer
 
 			if (originalImage != null)
 			{
+				// Image
 				Bitmap bmp = originalImage.ToBitmap();
 				g.DrawImage(bmp, 0, 0);
 
@@ -28,6 +30,16 @@ namespace PGViewer
 				{
 					Bitmap histogramBmp = originalImage.HistogramToBitmap(400, 150);
 					g.DrawImage(histogramBmp, 512, 0);
+				}
+
+				// Bezier curve
+				if (checkBox_FitBezierCurve.Checked)
+				{
+					Pen pen = new Pen(Color.Red, 2);
+					for (int i = 1; i < _bezierPoints.Count; i++)
+					{
+						g.DrawLine(pen, _bezierPoints[i - 1], _bezierPoints[i]);
+					}
 				}
 			}
 		}
@@ -118,15 +130,14 @@ namespace PGViewer
 			{
 				originalImage = ImageProcessor.ApplyGaussianBlur(originalImage, 5, (double)numericUpDown_SigmaValue.Value);
 				gaussianBlurApplied = true;
+				doubleBufferPanelDrawing.Invalidate();
 			}
 			else
 			{
-				ReloadImage();
 				numericUpDown_SigmaValue.Value = 1;
 				gaussianBlurApplied = false;
+				ReloadImage();
 			}
-
-			doubleBufferPanelDrawing.Invalidate();
 		}
 
 		private void doubleBufferPanelDrawing_MouseDown(object? sender, MouseEventArgs e)
@@ -170,7 +181,25 @@ namespace PGViewer
 				doubleBufferPanelDrawing.Invalidate();
 			}
 			else ReloadImage();
-			doubleBufferPanelDrawing.Invalidate();
+		}
+
+		private void checkBox_FitBezierCurve_CheckedChanged(object sender, EventArgs e)
+		{
+			if (originalImage == null) return;
+
+			if (checkBox_FitBezierCurve.Checked)
+			{
+				List<Point> centers = originalImage.ExtractLineCenters();
+				if (centers.Count < 2) 
+					return;
+				_bezierPoints = Bezier.FitCubicBezierCurve(centers);
+				doubleBufferPanelDrawing.Invalidate();
+			}
+			else
+			{
+				_bezierPoints.Clear();
+				ReloadImage();
+			}
 		}
 	}
 }

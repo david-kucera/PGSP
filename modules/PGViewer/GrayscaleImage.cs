@@ -2,6 +2,10 @@
 {
 	public class GrayscaleImage
 	{
+		#region Class members
+		private int _threshold = 128;
+		#endregion // Class members
+
 		#region Properties
 		public int Width { get; set; }
 		public int Height { get; set; }
@@ -68,7 +72,7 @@
 			return histogramBitmap;
 		}
 
-		public List<Point> ExtractLineCenters(int threshold = 128)
+		public List<Point> ExtractLineCenters()
 		{
 			List<Point> centers = new();
 
@@ -78,7 +82,7 @@
 
 				for (int x = 0; x < Width; x++)
 				{
-					if (Data[y * Width + x] < threshold)
+					if (Data[y * Width + x] < _threshold)
 						blackPixelPositions.Add(x);
 				}
 
@@ -94,8 +98,8 @@
 
 		public void ApplyThreshold()
 		{
-			int threshold = OtsuThreshold();
-			for (int i = 0; i < Data.Length; i++) Data[i] = Data[i] > threshold ? (byte)255 : (byte)0;
+			_threshold = OtsuThreshold();
+			for (int i = 0; i < Data.Length; i++) Data[i] = Data[i] > _threshold ? (byte)255 : (byte)0;
 		}
 
 		public void ApplySobelEdgeDetection()

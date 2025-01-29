@@ -41,6 +41,7 @@
 			numericUpDown_ImageWidth = new NumericUpDown();
 			comboBox1 = new ComboBox();
 			doubleBufferPanelDrawing = new DoubleBufferPanel();
+			checkBox_FitBezierCurve = new CheckBox();
 			panelTools.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)numericUpDown_SigmaValue).BeginInit();
 			((System.ComponentModel.ISupportInitialize)numericUpDown_ImageHeight).BeginInit();
@@ -50,6 +51,7 @@
 			// panelTools
 			// 
 			panelTools.BackColor = SystemColors.AppWorkspace;
+			panelTools.Controls.Add(checkBox_FitBezierCurve);
 			panelTools.Controls.Add(checkBox_ApplySobelEdge);
 			panelTools.Controls.Add(checkBox_ShowHistograms);
 			panelTools.Controls.Add(checkBoxApplyOtsuThreshold);
@@ -71,7 +73,7 @@
 			// checkBox_ApplySobelEdge
 			// 
 			checkBox_ApplySobelEdge.AutoSize = true;
-			checkBox_ApplySobelEdge.Location = new Point(28, 363);
+			checkBox_ApplySobelEdge.Location = new Point(28, 319);
 			checkBox_ApplySobelEdge.Name = "checkBox_ApplySobelEdge";
 			checkBox_ApplySobelEdge.Size = new Size(180, 29);
 			checkBox_ApplySobelEdge.TabIndex = 10;
@@ -82,7 +84,7 @@
 			// checkBox_ShowHistograms
 			// 
 			checkBox_ShowHistograms.AutoSize = true;
-			checkBox_ShowHistograms.Location = new Point(28, 319);
+			checkBox_ShowHistograms.Location = new Point(28, 414);
 			checkBox_ShowHistograms.Name = "checkBox_ShowHistograms";
 			checkBox_ShowHistograms.Size = new Size(176, 29);
 			checkBox_ShowHistograms.TabIndex = 9;
@@ -194,6 +196,17 @@
 			doubleBufferPanelDrawing.MouseMove += doubleBufferPanelDrawing_MouseMove;
 			doubleBufferPanelDrawing.MouseUp += doubleBufferPanelDrawing_MouseUp;
 			// 
+			// checkBox_FitBezierCurve
+			// 
+			checkBox_FitBezierCurve.AutoSize = true;
+			checkBox_FitBezierCurve.Location = new Point(28, 367);
+			checkBox_FitBezierCurve.Name = "checkBox_FitBezierCurve";
+			checkBox_FitBezierCurve.Size = new Size(201, 29);
+			checkBox_FitBezierCurve.TabIndex = 11;
+			checkBox_FitBezierCurve.Text = "Fit Bezier cubic curve";
+			checkBox_FitBezierCurve.UseVisualStyleBackColor = true;
+			checkBox_FitBezierCurve.CheckedChanged += checkBox_FitBezierCurve_CheckedChanged;
+			// 
 			// Form1
 			// 
 			AutoScaleDimensions = new SizeF(10F, 25F);
@@ -228,5 +241,6 @@
 		private CheckBox checkBoxApplyOtsuThreshold;
 		private CheckBox checkBox_ShowHistograms;
 		private CheckBox checkBox_ApplySobelEdge;
+		private CheckBox checkBox_FitBezierCurve;
 	}
 }
