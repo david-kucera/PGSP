@@ -29,6 +29,7 @@
 		private void InitializeComponent()
 		{
 			panelTools = new Panel();
+			checkBox_ApplySobelEdge = new CheckBox();
 			checkBox_ShowHistograms = new CheckBox();
 			checkBoxApplyOtsuThreshold = new CheckBox();
 			numericUpDown_SigmaValue = new NumericUpDown();
@@ -49,6 +50,7 @@
 			// panelTools
 			// 
 			panelTools.BackColor = SystemColors.AppWorkspace;
+			panelTools.Controls.Add(checkBox_ApplySobelEdge);
 			panelTools.Controls.Add(checkBox_ShowHistograms);
 			panelTools.Controls.Add(checkBoxApplyOtsuThreshold);
 			panelTools.Controls.Add(numericUpDown_SigmaValue);
@@ -65,6 +67,17 @@
 			panelTools.Name = "panelTools";
 			panelTools.Size = new Size(256, 841);
 			panelTools.TabIndex = 0;
+			// 
+			// checkBox_ApplySobelEdge
+			// 
+			checkBox_ApplySobelEdge.AutoSize = true;
+			checkBox_ApplySobelEdge.Location = new Point(28, 363);
+			checkBox_ApplySobelEdge.Name = "checkBox_ApplySobelEdge";
+			checkBox_ApplySobelEdge.Size = new Size(180, 29);
+			checkBox_ApplySobelEdge.TabIndex = 10;
+			checkBox_ApplySobelEdge.Text = "Apply Sobel edge";
+			checkBox_ApplySobelEdge.UseVisualStyleBackColor = true;
+			checkBox_ApplySobelEdge.CheckedChanged += checkBox_ApplySobelEdge_CheckedChanged;
 			// 
 			// checkBox_ShowHistograms
 			// 
@@ -214,5 +227,6 @@
 		private Label label3;
 		private CheckBox checkBoxApplyOtsuThreshold;
 		private CheckBox checkBox_ShowHistograms;
+		private CheckBox checkBox_ApplySobelEdge;
 	}
 }

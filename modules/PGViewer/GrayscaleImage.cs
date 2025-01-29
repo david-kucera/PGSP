@@ -97,6 +97,37 @@
 			int threshold = OtsuThreshold();
 			for (int i = 0; i < Data.Length; i++) Data[i] = Data[i] > threshold ? (byte)255 : (byte)0;
 		}
+
+		public void ApplySobelEdgeDetection()
+		{
+			byte[] newData = new byte[Width * Height];
+
+			for (int y = 1; y < Height - 1; y++)
+			{
+				for (int x = 1; x < Width - 1; x++)
+				{
+					int gradX = 0;
+					int gradY = 0;
+
+					for (int ky = -1; ky <= 1; ky++)
+					{
+						for (int kx = -1; kx <= 1; kx++)
+						{
+							int pixelValue = Data[(y + ky) * Width + (x + kx)];
+							gradX += pixelValue * SobelKernel.X[ky + 1, kx + 1];
+							gradY += pixelValue * SobelKernel.Y[ky + 1, kx + 1];
+						}
+					}
+
+					int magnitude = (int)Math.Sqrt(gradX * gradX + gradY * gradY);
+					magnitude = Math.Min(255, magnitude);
+
+					newData[y * Width + x] = (byte)magnitude;
+				}
+			}
+
+			Data = newData;
+		}
 		#endregion //Public functions
 
 		#region Private functions

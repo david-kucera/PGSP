@@ -159,5 +159,18 @@ namespace PGViewer
 		{
 			doubleBufferPanelDrawing.Invalidate();
 		}
+
+		private void checkBox_ApplySobelEdge_CheckedChanged(object sender, EventArgs e)
+		{
+			if (originalImage == null) return;
+
+			if (checkBox_ApplySobelEdge.Checked)
+			{
+				originalImage.ApplySobelEdgeDetection();
+				doubleBufferPanelDrawing.Invalidate();
+			}
+			else ReloadImage();
+			doubleBufferPanelDrawing.Invalidate();
+		}
 	}
 }
