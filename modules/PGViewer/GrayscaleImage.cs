@@ -1,4 +1,4 @@
-﻿namespace PG_Cvicenie02
+﻿namespace PGSP
 {
 	public class GrayscaleImage
 	{

@@ -1,5 +1,4 @@
-﻿
-namespace cv1
+﻿namespace PGSP
 {
     partial class Form1
     {

@@ -1,4 +1,4 @@
-namespace cv1
+namespace PGSP
 {
     internal static class Program
     {

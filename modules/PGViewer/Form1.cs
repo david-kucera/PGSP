@@ -1,7 +1,6 @@
 using System.Data;
-using PG_Cvicenie02;
 
-namespace cv1
+namespace PGSP
 {
 	public partial class Form1 : Form
 	{
