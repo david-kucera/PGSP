@@ -29,6 +29,8 @@
 		private void InitializeComponent()
 		{
 			panelTools = new Panel();
+			checkBox_ShowHistograms = new CheckBox();
+			checkBoxApplyOtsuThreshold = new CheckBox();
 			numericUpDown_SigmaValue = new NumericUpDown();
 			label3 = new Label();
 			checkBox_ApplyGaussianBlur = new CheckBox();
@@ -38,7 +40,6 @@
 			numericUpDown_ImageWidth = new NumericUpDown();
 			comboBox1 = new ComboBox();
 			doubleBufferPanelDrawing = new DoubleBufferPanel();
-			checkBoxApplyOtsuThreshold = new CheckBox();
 			panelTools.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)numericUpDown_SigmaValue).BeginInit();
 			((System.ComponentModel.ISupportInitialize)numericUpDown_ImageHeight).BeginInit();
@@ -48,6 +49,7 @@
 			// panelTools
 			// 
 			panelTools.BackColor = SystemColors.AppWorkspace;
+			panelTools.Controls.Add(checkBox_ShowHistograms);
 			panelTools.Controls.Add(checkBoxApplyOtsuThreshold);
 			panelTools.Controls.Add(numericUpDown_SigmaValue);
 			panelTools.Controls.Add(label3);
@@ -63,6 +65,28 @@
 			panelTools.Name = "panelTools";
 			panelTools.Size = new Size(256, 841);
 			panelTools.TabIndex = 0;
+			// 
+			// checkBox_ShowHistograms
+			// 
+			checkBox_ShowHistograms.AutoSize = true;
+			checkBox_ShowHistograms.Location = new Point(28, 319);
+			checkBox_ShowHistograms.Name = "checkBox_ShowHistograms";
+			checkBox_ShowHistograms.Size = new Size(176, 29);
+			checkBox_ShowHistograms.TabIndex = 9;
+			checkBox_ShowHistograms.Text = "Show histograms";
+			checkBox_ShowHistograms.UseVisualStyleBackColor = true;
+			checkBox_ShowHistograms.CheckedChanged += checkBox_ShowHistograms_CheckedChanged;
+			// 
+			// checkBoxApplyOtsuThreshold
+			// 
+			checkBoxApplyOtsuThreshold.AutoSize = true;
+			checkBoxApplyOtsuThreshold.Location = new Point(28, 274);
+			checkBoxApplyOtsuThreshold.Name = "checkBoxApplyOtsuThreshold";
+			checkBoxApplyOtsuThreshold.Size = new Size(208, 29);
+			checkBoxApplyOtsuThreshold.TabIndex = 8;
+			checkBoxApplyOtsuThreshold.Text = "Apply Otsu threshold";
+			checkBoxApplyOtsuThreshold.UseVisualStyleBackColor = true;
+			checkBoxApplyOtsuThreshold.CheckedChanged += checkBox_ApplyOtsuTreshold_Changed;
 			// 
 			// numericUpDown_SigmaValue
 			// 
@@ -157,17 +181,6 @@
 			doubleBufferPanelDrawing.MouseMove += doubleBufferPanelDrawing_MouseMove;
 			doubleBufferPanelDrawing.MouseUp += doubleBufferPanelDrawing_MouseUp;
 			// 
-			// checkBox1
-			// 
-			checkBoxApplyOtsuThreshold.AutoSize = true;
-			checkBoxApplyOtsuThreshold.Location = new Point(28, 274);
-			checkBoxApplyOtsuThreshold.Name = "checkBoxApplyOtsuThreshold";
-			checkBoxApplyOtsuThreshold.Size = new Size(208, 29);
-			checkBoxApplyOtsuThreshold.TabIndex = 8;
-			checkBoxApplyOtsuThreshold.Text = "Apply Otsu threshold";
-			checkBoxApplyOtsuThreshold.UseVisualStyleBackColor = true;
-			checkBoxApplyOtsuThreshold.CheckedChanged += checkBox_ApplyOtsuTreshold_Changed;
-			// 
 			// Form1
 			// 
 			AutoScaleDimensions = new SizeF(10F, 25F);
@@ -200,5 +213,6 @@
 		private NumericUpDown numericUpDown_SigmaValue;
 		private Label label3;
 		private CheckBox checkBoxApplyOtsuThreshold;
+		private CheckBox checkBox_ShowHistograms;
 	}
 }

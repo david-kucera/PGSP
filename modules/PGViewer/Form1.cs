@@ -5,7 +5,6 @@ namespace PGViewer
 	public partial class Form1 : Form
 	{
 		private GrayscaleImage? originalImage = null;
-		private GrayscaleImage? processedImage = null;
 		private bool gaussianBlurApplied = false;
 		private int imageWidth;
 		private int imageHeight;
@@ -25,8 +24,11 @@ namespace PGViewer
 				g.DrawImage(bmp, 0, 0);
 
 				// Histogram
-				Bitmap histogramBmp = originalImage.HistogramToBitmap(400, 150);
-				g.DrawImage(histogramBmp, 512, 0);
+				if (checkBox_ShowHistograms.Checked)
+				{
+					Bitmap histogramBmp = originalImage.HistogramToBitmap(400, 150);
+					g.DrawImage(histogramBmp, 512, 0);
+				}
 			}
 		}
 
@@ -144,8 +146,18 @@ namespace PGViewer
 		{
 			if (originalImage == null) return;
 
-			if (checkBoxApplyOtsuThreshold.Checked) originalImage.ApplyThreshold();
+			if (checkBoxApplyOtsuThreshold.Checked)
+			{
+				originalImage.ApplyThreshold();
+				doubleBufferPanelDrawing.Invalidate();
+			}
 			else ReloadImage();
+
+		}
+
+		private void checkBox_ShowHistograms_CheckedChanged(object sender, EventArgs e)
+		{
+			doubleBufferPanelDrawing.Invalidate();
 		}
 	}
 }
