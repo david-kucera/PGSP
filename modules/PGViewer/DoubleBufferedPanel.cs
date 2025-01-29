@@ -1,4 +1,4 @@
-﻿namespace PGSP
+﻿namespace PGViewer
 {
     public class DoubleBufferPanel : Panel
     {

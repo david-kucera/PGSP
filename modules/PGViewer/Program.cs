@@ -1,4 +1,4 @@
-namespace PGSP
+namespace PGViewer
 {
     internal static class Program
     {

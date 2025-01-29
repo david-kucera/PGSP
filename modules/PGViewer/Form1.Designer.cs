@@ -1,4 +1,4 @@
-﻿namespace PGSP
+﻿namespace PGViewer
 {
     partial class Form1
     {
@@ -29,6 +29,7 @@
 		private void InitializeComponent()
 		{
 			panelTools = new Panel();
+			checkBox1 = new CheckBox();
 			label2 = new Label();
 			label1 = new Label();
 			numericUpDown2 = new NumericUpDown();
@@ -43,6 +44,7 @@
 			// panelTools
 			// 
 			panelTools.BackColor = SystemColors.AppWorkspace;
+			panelTools.Controls.Add(checkBox1);
 			panelTools.Controls.Add(label2);
 			panelTools.Controls.Add(label1);
 			panelTools.Controls.Add(numericUpDown2);
@@ -54,6 +56,17 @@
 			panelTools.Name = "panelTools";
 			panelTools.Size = new Size(256, 841);
 			panelTools.TabIndex = 0;
+			// 
+			// checkBox1
+			// 
+			checkBox1.AutoSize = true;
+			checkBox1.Location = new Point(27, 186);
+			checkBox1.Name = "checkBox1";
+			checkBox1.Size = new Size(195, 29);
+			checkBox1.TabIndex = 5;
+			checkBox1.Text = "Apply Gaussian Blur";
+			checkBox1.UseVisualStyleBackColor = true;
+			checkBox1.CheckedChanged += checkBox1_CheckedChanged_1;
 			// 
 			// label2
 			// 
@@ -145,5 +158,6 @@
 		private NumericUpDown numericUpDown2;
 		private NumericUpDown numericUpDown1;
 		private Label label2;
+		private CheckBox checkBox1;
 	}
 }

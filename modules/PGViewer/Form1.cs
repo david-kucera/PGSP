@@ -1,11 +1,11 @@
 using System.Data;
 
-namespace PGSP
+namespace PGViewer
 {
 	public partial class Form1 : Form
 	{
-		private List<Point> mousePositions = new List<Point>();
 		private GrayscaleImage? originalImage = null;
+		private bool gaussianBlurApplied = false;
 		private int imageWidth;
 		private int imageHeight;
 
@@ -29,20 +29,6 @@ namespace PGSP
 			}
 		}
 
-		private void doubleBufferPanelDrawing_MouseDown(object sender, MouseEventArgs e)
-		{
-			if (e.Button == MouseButtons.Left)
-			{
-				mousePositions.Add(e.Location);
-			}
-			else if (e.Button == MouseButtons.Right)
-			{
-				mousePositions.Clear();
-			}
-
-			doubleBufferPanelDrawing.Invalidate();
-		}
-
 		private void doubleBufferPanelDrawing_MouseMove(object sender, MouseEventArgs e)
 		{
 
@@ -51,7 +37,6 @@ namespace PGSP
 
 		private void doubleBufferPanelDrawing_MouseUp(object sender, MouseEventArgs e)
 		{
-
 			doubleBufferPanelDrawing.Invalidate();
 		}
 
@@ -106,6 +91,7 @@ namespace PGSP
 
 		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
 		{
+			checkBox1.Checked = false;
 			ReloadImage();
 		}
 
@@ -119,6 +105,27 @@ namespace PGSP
 		{
 			imageHeight = (int)numericUpDown2.Value;
 			ReloadImage();
+		}
+
+		private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
+		{
+			if (originalImage == null) return;
+
+			if (checkBox1.Checked)
+			{
+				originalImage = ImageProcessor.ApplyGaussianBlur(originalImage, 5, 1.5);
+			}
+			else
+			{
+				ReloadImage();
+			}
+
+			doubleBufferPanelDrawing.Invalidate();
+		}
+
+		private void doubleBufferPanelDrawing_MouseDown(object? sender, MouseEventArgs e)
+		{
+			return;
 		}
 	}
 }
