@@ -100,34 +100,57 @@
 
 				if (whiteSegment) whitePixelEnd.Add(Width - 1);
 
-				if (whitePixelStart.Count == 2 && whitePixelEnd.Count == 2)
-				{
-					int leftSegmentCenter = (whitePixelStart[0] + whitePixelEnd[0]) / 2;
-					int rightSegmentCenter = (whitePixelStart[1] + whitePixelEnd[1]) / 2;
+				//if (whitePixelStart.Count == 2 && whitePixelEnd.Count == 2)
+				//{
+				//	int leftSegmentCenter = (whitePixelStart[0] + whitePixelEnd[0]) / 2;
+				//	int rightSegmentCenter = (whitePixelStart[1] + whitePixelEnd[1]) / 2;
 
-					int midX = (leftSegmentCenter + rightSegmentCenter) / 2;
-					midline.Add(new Point(midX, y));
-				}
-				else if (whitePixelStart.Count > 2)
+				//	int midX = (leftSegmentCenter + rightSegmentCenter) / 2;
+				//	midline.Add(new Point(midX, y));
+				//}
+				//else if (whitePixelStart.Count > 2)
+				//{
+				//	int maxDist = int.MinValue;
+				//	int midX = 0;
+
+				//	for (int i = 0; i < whitePixelStart.Count - 1; i++)
+				//	{
+				//		for (int j = i + 1; j < whitePixelStart.Count; j++)
+				//		{
+				//			int leftCenter = (whitePixelStart[i] + whitePixelEnd[i]) / 2;
+				//			int rightCenter = (whitePixelStart[j] + whitePixelEnd[j]) / 2;
+
+				//			int dist = Math.Abs(leftCenter - rightCenter);
+				//			if (dist > maxDist)
+				//			{
+				//				maxDist = dist;
+				//				midX = (leftCenter + rightCenter) / 2;
+				//			}
+				//		}
+				//	}
+
+				if (whitePixelStart.Count >= 2)
 				{
 					int maxDist = int.MinValue;
-					int midX = 0;
+					int bestLeft = 0, bestRight = 0;
 
 					for (int i = 0; i < whitePixelStart.Count - 1; i++)
 					{
 						for (int j = i + 1; j < whitePixelStart.Count; j++)
 						{
-							int leftCenter = (whitePixelStart[i] + whitePixelEnd[i]) / 2;
-							int rightCenter = (whitePixelStart[j] + whitePixelEnd[j]) / 2;
-
-							int dist = Math.Abs(leftCenter - rightCenter);
+							int dist = Math.Abs(whitePixelStart[j] - whitePixelEnd[i]);
 							if (dist > maxDist)
 							{
 								maxDist = dist;
-								midX = (leftCenter + rightCenter) / 2;
+								bestLeft = i;
+								bestRight = j;
 							}
 						}
 					}
+
+					int leftCenter = (whitePixelStart[bestLeft] + whitePixelEnd[bestLeft]) / 2;
+					int rightCenter = (whitePixelStart[bestRight] + whitePixelEnd[bestRight]) / 2;
+					int midX = (leftCenter + rightCenter) / 2;
 
 					midline.Add(new Point(midX, y));
 				}

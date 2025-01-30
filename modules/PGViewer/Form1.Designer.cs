@@ -29,9 +29,10 @@
 		private void InitializeComponent()
 		{
 			panelTools = new Panel();
+			checkBox_FitBezierCurve = new CheckBox();
 			checkBox_ApplySobelEdge = new CheckBox();
 			checkBox_ShowHistograms = new CheckBox();
-			checkBoxApplyOtsuThreshold = new CheckBox();
+			checkBox_ApplyOtsuThreshold = new CheckBox();
 			numericUpDown_SigmaValue = new NumericUpDown();
 			label3 = new Label();
 			checkBox_ApplyGaussianBlur = new CheckBox();
@@ -41,7 +42,7 @@
 			numericUpDown_ImageWidth = new NumericUpDown();
 			comboBox1 = new ComboBox();
 			doubleBufferPanelDrawing = new DoubleBufferPanel();
-			checkBox_FitBezierCurve = new CheckBox();
+			checkBox_ShowMiddleLine = new CheckBox();
 			panelTools.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)numericUpDown_SigmaValue).BeginInit();
 			((System.ComponentModel.ISupportInitialize)numericUpDown_ImageHeight).BeginInit();
@@ -51,10 +52,11 @@
 			// panelTools
 			// 
 			panelTools.BackColor = SystemColors.AppWorkspace;
+			panelTools.Controls.Add(checkBox_ShowMiddleLine);
 			panelTools.Controls.Add(checkBox_FitBezierCurve);
 			panelTools.Controls.Add(checkBox_ApplySobelEdge);
 			panelTools.Controls.Add(checkBox_ShowHistograms);
-			panelTools.Controls.Add(checkBoxApplyOtsuThreshold);
+			panelTools.Controls.Add(checkBox_ApplyOtsuThreshold);
 			panelTools.Controls.Add(numericUpDown_SigmaValue);
 			panelTools.Controls.Add(label3);
 			panelTools.Controls.Add(checkBox_ApplyGaussianBlur);
@@ -69,6 +71,17 @@
 			panelTools.Name = "panelTools";
 			panelTools.Size = new Size(256, 841);
 			panelTools.TabIndex = 0;
+			// 
+			// checkBox_FitBezierCurve
+			// 
+			checkBox_FitBezierCurve.AutoSize = true;
+			checkBox_FitBezierCurve.Location = new Point(28, 367);
+			checkBox_FitBezierCurve.Name = "checkBox_FitBezierCurve";
+			checkBox_FitBezierCurve.Size = new Size(201, 29);
+			checkBox_FitBezierCurve.TabIndex = 11;
+			checkBox_FitBezierCurve.Text = "Fit Bezier cubic curve";
+			checkBox_FitBezierCurve.UseVisualStyleBackColor = true;
+			checkBox_FitBezierCurve.CheckedChanged += checkBox_FitBezierCurve_CheckedChanged;
 			// 
 			// checkBox_ApplySobelEdge
 			// 
@@ -92,16 +105,16 @@
 			checkBox_ShowHistograms.UseVisualStyleBackColor = true;
 			checkBox_ShowHistograms.CheckedChanged += checkBox_ShowHistograms_CheckedChanged;
 			// 
-			// checkBoxApplyOtsuThreshold
+			// checkBox_ApplyOtsuThreshold
 			// 
-			checkBoxApplyOtsuThreshold.AutoSize = true;
-			checkBoxApplyOtsuThreshold.Location = new Point(28, 274);
-			checkBoxApplyOtsuThreshold.Name = "checkBoxApplyOtsuThreshold";
-			checkBoxApplyOtsuThreshold.Size = new Size(208, 29);
-			checkBoxApplyOtsuThreshold.TabIndex = 8;
-			checkBoxApplyOtsuThreshold.Text = "Apply Otsu threshold";
-			checkBoxApplyOtsuThreshold.UseVisualStyleBackColor = true;
-			checkBoxApplyOtsuThreshold.CheckedChanged += checkBox_ApplyOtsuTreshold_Changed;
+			checkBox_ApplyOtsuThreshold.AutoSize = true;
+			checkBox_ApplyOtsuThreshold.Location = new Point(28, 274);
+			checkBox_ApplyOtsuThreshold.Name = "checkBox_ApplyOtsuThreshold";
+			checkBox_ApplyOtsuThreshold.Size = new Size(208, 29);
+			checkBox_ApplyOtsuThreshold.TabIndex = 8;
+			checkBox_ApplyOtsuThreshold.Text = "Apply Otsu threshold";
+			checkBox_ApplyOtsuThreshold.UseVisualStyleBackColor = true;
+			checkBox_ApplyOtsuThreshold.CheckedChanged += checkBox_ApplyOtsuTreshold_Changed;
 			// 
 			// numericUpDown_SigmaValue
 			// 
@@ -196,16 +209,16 @@
 			doubleBufferPanelDrawing.MouseMove += doubleBufferPanelDrawing_MouseMove;
 			doubleBufferPanelDrawing.MouseUp += doubleBufferPanelDrawing_MouseUp;
 			// 
-			// checkBox_FitBezierCurve
+			// checkBox1
 			// 
-			checkBox_FitBezierCurve.AutoSize = true;
-			checkBox_FitBezierCurve.Location = new Point(28, 367);
-			checkBox_FitBezierCurve.Name = "checkBox_FitBezierCurve";
-			checkBox_FitBezierCurve.Size = new Size(201, 29);
-			checkBox_FitBezierCurve.TabIndex = 11;
-			checkBox_FitBezierCurve.Text = "Fit Bezier cubic curve";
-			checkBox_FitBezierCurve.UseVisualStyleBackColor = true;
-			checkBox_FitBezierCurve.CheckedChanged += checkBox_FitBezierCurve_CheckedChanged;
+			checkBox_ShowMiddleLine.AutoSize = true;
+			checkBox_ShowMiddleLine.Location = new Point(28, 458);
+			checkBox_ShowMiddleLine.Name = "checkBox_ShowMiddleLine";
+			checkBox_ShowMiddleLine.Size = new Size(174, 29);
+			checkBox_ShowMiddleLine.TabIndex = 12;
+			checkBox_ShowMiddleLine.Text = "Show middle line";
+			checkBox_ShowMiddleLine.UseVisualStyleBackColor = true;
+			checkBox_ShowMiddleLine.CheckedChanged += CheckBoxShowMiddleLineCheckedChanged;
 			// 
 			// Form1
 			// 
@@ -238,9 +251,10 @@
 		private CheckBox checkBox_ApplyGaussianBlur;
 		private NumericUpDown numericUpDown_SigmaValue;
 		private Label label3;
-		private CheckBox checkBoxApplyOtsuThreshold;
+		private CheckBox checkBox_ApplyOtsuThreshold;
 		private CheckBox checkBox_ShowHistograms;
 		private CheckBox checkBox_ApplySobelEdge;
 		private CheckBox checkBox_FitBezierCurve;
+		private CheckBox checkBox_ShowMiddleLine;
 	}
 }

@@ -1,4 +1,5 @@
 using System.Data;
+using System.Drawing;
 
 namespace PGViewer
 {
@@ -7,6 +8,7 @@ namespace PGViewer
 		private GrayscaleImage? originalImage = null;
 		private bool gaussianBlurApplied = false;
 		private List<PointF> _bezierPoints = new List<PointF>();
+		private List<Point> _centers = new List<Point>();
 		private int imageWidth;
 		private int imageHeight;
 
@@ -28,17 +30,29 @@ namespace PGViewer
 				// Histogram
 				if (checkBox_ShowHistograms.Checked)
 				{
-					Bitmap histogramBmp = originalImage.HistogramToBitmap(400, 150);
-					g.DrawImage(histogramBmp, 512, 0);
+					Bitmap histogramBmp = originalImage.HistogramToBitmap(512, 150);
+					g.DrawImage(histogramBmp, 0, 512);
 				}
 
 				// Bezier curve
-				if (checkBox_FitBezierCurve.Checked)
+				if (checkBox_FitBezierCurve.Checked && _bezierPoints.Count >= 4)
 				{
-					Pen pen = new Pen(Color.Red, 2);
-					for (int i = 1; i < _bezierPoints.Count; i++)
+					Pen pen = new Pen(Color.Red, 4);
+					for (int i = 1; i < _bezierPoints.Count - 3; i += 3)
 					{
-						g.DrawLine(pen, _bezierPoints[i - 1], _bezierPoints[i]);
+						g.DrawBezier(pen, _bezierPoints[i], _bezierPoints[i + 1], _bezierPoints[i + 2], _bezierPoints[i + 3]);
+					}
+
+					
+				}
+
+				// Middle line
+				if (checkBox_ShowMiddleLine.Checked)
+				{
+					Pen pen = new Pen(Color.Blue, 1);
+					foreach (var point in _centers)
+					{
+						g.DrawEllipse(pen, point.X - 2, point.Y - 2, 4, 4);
 					}
 				}
 			}
@@ -107,6 +121,10 @@ namespace PGViewer
 		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			checkBox_ApplyGaussianBlur.Checked = false;
+			checkBox_FitBezierCurve.Checked = false;
+			//checkBox_ShowHistograms.Checked = false;
+			checkBox_ApplySobelEdge.Checked = false;
+			checkBox_ApplyOtsuThreshold.Checked = false;
 			ReloadImage();
 		}
 
@@ -157,7 +175,7 @@ namespace PGViewer
 		{
 			if (originalImage == null) return;
 
-			if (checkBoxApplyOtsuThreshold.Checked)
+			if (checkBox_ApplyOtsuThreshold.Checked)
 			{
 				originalImage.ApplyThreshold();
 				doubleBufferPanelDrawing.Invalidate();
@@ -189,16 +207,28 @@ namespace PGViewer
 
 			if (checkBox_FitBezierCurve.Checked)
 			{
-				List<Point> centers = originalImage.ExtractLineCenters();
-				if (centers.Count < 2) 
+				_centers = originalImage.ExtractLineCenters();
+				if (_centers.Count < 2)
 					return;
-				_bezierPoints = Bezier.FitCubicBezierCurve(centers);
+				_bezierPoints = Bezier.FitCubicBezierCurve(_centers);
 				doubleBufferPanelDrawing.Invalidate();
 			}
 			else
 			{
 				_bezierPoints.Clear();
 				ReloadImage();
+			}
+		}
+
+		private void CheckBoxShowMiddleLineCheckedChanged(object sender, EventArgs e)
+		{
+			if (originalImage == null) return;
+
+			if (checkBox_ShowMiddleLine.Checked)
+			{
+				if (_centers.Count < 2)
+					return;
+				doubleBufferPanelDrawing.Invalidate();
 			}
 		}
 	}
