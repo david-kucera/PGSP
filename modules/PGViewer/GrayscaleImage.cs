@@ -2,10 +2,6 @@
 {
 	public class GrayscaleImage
 	{
-		#region Class members
-		private int _threshold = 128;
-		#endregion // Class members
-
 		#region Properties
 		public int Width { get; set; }
 		public int Height { get; set; }
@@ -97,37 +93,7 @@
 						whiteSegment = false;
 					}
 				}
-
 				if (whiteSegment) whitePixelEnd.Add(Width - 1);
-
-				//if (whitePixelStart.Count == 2 && whitePixelEnd.Count == 2)
-				//{
-				//	int leftSegmentCenter = (whitePixelStart[0] + whitePixelEnd[0]) / 2;
-				//	int rightSegmentCenter = (whitePixelStart[1] + whitePixelEnd[1]) / 2;
-
-				//	int midX = (leftSegmentCenter + rightSegmentCenter) / 2;
-				//	midline.Add(new Point(midX, y));
-				//}
-				//else if (whitePixelStart.Count > 2)
-				//{
-				//	int maxDist = int.MinValue;
-				//	int midX = 0;
-
-				//	for (int i = 0; i < whitePixelStart.Count - 1; i++)
-				//	{
-				//		for (int j = i + 1; j < whitePixelStart.Count; j++)
-				//		{
-				//			int leftCenter = (whitePixelStart[i] + whitePixelEnd[i]) / 2;
-				//			int rightCenter = (whitePixelStart[j] + whitePixelEnd[j]) / 2;
-
-				//			int dist = Math.Abs(leftCenter - rightCenter);
-				//			if (dist > maxDist)
-				//			{
-				//				maxDist = dist;
-				//				midX = (leftCenter + rightCenter) / 2;
-				//			}
-				//		}
-				//	}
 
 				if (whitePixelStart.Count >= 2)
 				{
@@ -161,8 +127,8 @@
 
 		public void ApplyThreshold()
 		{
-			_threshold = OtsuThreshold();
-			for (int i = 0; i < Data.Length; i++) Data[i] = Data[i] > _threshold ? (byte)255 : (byte)0;
+			int threshold = OtsuThreshold();
+			for (int i = 0; i < Data.Length; i++) Data[i] = Data[i] > threshold ? (byte)255 : (byte)0;
 		}
 
 		public void ApplySobelEdgeDetection()

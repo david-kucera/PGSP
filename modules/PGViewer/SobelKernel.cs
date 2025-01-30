@@ -2,6 +2,7 @@
 {
 	public static class SobelKernel
 	{
+		#region Constants
 		public static int[,] X
 		{
 			get
@@ -27,5 +28,6 @@
 				};
 			}
 		}
+		#endregion // Constants
 	}
 }

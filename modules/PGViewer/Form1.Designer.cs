@@ -29,6 +29,7 @@
 		private void InitializeComponent()
 		{
 			panelTools = new Panel();
+			checkBox_ShowMiddleLine = new CheckBox();
 			checkBox_FitBezierCurve = new CheckBox();
 			checkBox_ApplySobelEdge = new CheckBox();
 			checkBox_ShowHistograms = new CheckBox();
@@ -40,9 +41,8 @@
 			label1 = new Label();
 			numericUpDown_ImageHeight = new NumericUpDown();
 			numericUpDown_ImageWidth = new NumericUpDown();
-			comboBox1 = new ComboBox();
+			comboBox_File = new ComboBox();
 			doubleBufferPanelDrawing = new DoubleBufferPanel();
-			checkBox_ShowMiddleLine = new CheckBox();
 			panelTools.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)numericUpDown_SigmaValue).BeginInit();
 			((System.ComponentModel.ISupportInitialize)numericUpDown_ImageHeight).BeginInit();
@@ -64,13 +64,24 @@
 			panelTools.Controls.Add(label1);
 			panelTools.Controls.Add(numericUpDown_ImageHeight);
 			panelTools.Controls.Add(numericUpDown_ImageWidth);
-			panelTools.Controls.Add(comboBox1);
+			panelTools.Controls.Add(comboBox_File);
 			panelTools.Dock = DockStyle.Left;
 			panelTools.Location = new Point(0, 0);
 			panelTools.Margin = new Padding(4, 5, 4, 5);
 			panelTools.Name = "panelTools";
-			panelTools.Size = new Size(256, 841);
+			panelTools.Size = new Size(256, 864);
 			panelTools.TabIndex = 0;
+			// 
+			// checkBox_ShowMiddleLine
+			// 
+			checkBox_ShowMiddleLine.AutoSize = true;
+			checkBox_ShowMiddleLine.Location = new Point(28, 458);
+			checkBox_ShowMiddleLine.Name = "checkBox_ShowMiddleLine";
+			checkBox_ShowMiddleLine.Size = new Size(174, 29);
+			checkBox_ShowMiddleLine.TabIndex = 12;
+			checkBox_ShowMiddleLine.Text = "Show middle line";
+			checkBox_ShowMiddleLine.UseVisualStyleBackColor = true;
+			checkBox_ShowMiddleLine.CheckedChanged += CheckBoxShowMiddleLineCheckedChanged;
 			// 
 			// checkBox_FitBezierCurve
 			// 
@@ -188,13 +199,13 @@
 			// 
 			// comboBox1
 			// 
-			comboBox1.FormattingEnabled = true;
-			comboBox1.Location = new Point(28, 30);
-			comboBox1.Margin = new Padding(4);
-			comboBox1.Name = "comboBox1";
-			comboBox1.Size = new Size(188, 33);
-			comboBox1.TabIndex = 0;
-			comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+			comboBox_File.FormattingEnabled = true;
+			comboBox_File.Location = new Point(28, 30);
+			comboBox_File.Margin = new Padding(4);
+			comboBox_File.Name = "comboBox_File";
+			comboBox_File.Size = new Size(188, 33);
+			comboBox_File.TabIndex = 0;
+			comboBox_File.SelectedIndexChanged += ComboBoxFileSelectedIndexChanged;
 			// 
 			// doubleBufferPanelDrawing
 			// 
@@ -202,29 +213,15 @@
 			doubleBufferPanelDrawing.Location = new Point(256, 0);
 			doubleBufferPanelDrawing.Margin = new Padding(4, 5, 4, 5);
 			doubleBufferPanelDrawing.Name = "doubleBufferPanelDrawing";
-			doubleBufferPanelDrawing.Size = new Size(1006, 841);
+			doubleBufferPanelDrawing.Size = new Size(1202, 864);
 			doubleBufferPanelDrawing.TabIndex = 1;
 			doubleBufferPanelDrawing.Paint += doubleBufferPanelDrawing_Paint;
-			doubleBufferPanelDrawing.MouseDown += doubleBufferPanelDrawing_MouseDown;
-			doubleBufferPanelDrawing.MouseMove += doubleBufferPanelDrawing_MouseMove;
-			doubleBufferPanelDrawing.MouseUp += doubleBufferPanelDrawing_MouseUp;
-			// 
-			// checkBox1
-			// 
-			checkBox_ShowMiddleLine.AutoSize = true;
-			checkBox_ShowMiddleLine.Location = new Point(28, 458);
-			checkBox_ShowMiddleLine.Name = "checkBox_ShowMiddleLine";
-			checkBox_ShowMiddleLine.Size = new Size(174, 29);
-			checkBox_ShowMiddleLine.TabIndex = 12;
-			checkBox_ShowMiddleLine.Text = "Show middle line";
-			checkBox_ShowMiddleLine.UseVisualStyleBackColor = true;
-			checkBox_ShowMiddleLine.CheckedChanged += CheckBoxShowMiddleLineCheckedChanged;
 			// 
 			// Form1
 			// 
 			AutoScaleDimensions = new SizeF(10F, 25F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(1262, 841);
+			ClientSize = new Size(1458, 864);
 			Controls.Add(doubleBufferPanelDrawing);
 			Controls.Add(panelTools);
 			Margin = new Padding(4, 5, 4, 5);
@@ -243,7 +240,7 @@
 
 		private Panel panelTools;
         private DoubleBufferPanel doubleBufferPanelDrawing;
-		private ComboBox comboBox1;
+		private ComboBox comboBox_File;
 		private Label label1;
 		private NumericUpDown numericUpDown_ImageHeight;
 		private NumericUpDown numericUpDown_ImageWidth;

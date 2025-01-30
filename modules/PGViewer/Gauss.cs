@@ -6,7 +6,7 @@
 		private const int KERNEL_SIZE = 3;
 		#endregion // Constants
 
-		#region Publix functions
+		#region Public functions
 		public static GrayscaleImage ApplyGaussianBlur(GrayscaleImage inputImage, double sigma = 1.0)
 		{
 			int halfKernel = KERNEL_SIZE / 2;
