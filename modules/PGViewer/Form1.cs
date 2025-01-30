@@ -203,8 +203,8 @@ namespace PGViewer
 			{
 				if (_centers.Count < 2)
 					return;
-				doubleBufferPanelDrawing.Invalidate();
 			}
+			doubleBufferPanelDrawing.Invalidate();
 		}
 		#endregion // Event handlers
 

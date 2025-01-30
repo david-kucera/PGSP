@@ -13,10 +13,15 @@
 			Point start = points.First();
 			Point end = points.Last();
 
-			Point control1 = points[points.Count / 3];
-			Point control2 = points[2 * points.Count / 3];
+			Point mid = points[points.Count / 2];
 
-			for (float t = 0; t <= 1; t += 0.01f)
+			int dx = end.X - start.X;
+			int dy = end.Y - start.Y;
+
+			Point control1 = new Point(mid.X - dx / 4, mid.Y - dy / 3);
+			Point control2 = new Point(mid.X + dx / 4, mid.Y + dy / 3);
+
+			for (float t = 0; t <= 1; t += 1.0f / points.Count)
 			{
 				float u = 1 - t;
 				float uu = u * u;
