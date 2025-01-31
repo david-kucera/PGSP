@@ -6,6 +6,8 @@ namespace AlgorithmTesterConsole
 {
 	internal class Program
 	{
+		// TODO cyklicke spracovanie vsetkych fotiek v priecinku data
+		// TODO moznost preskocit niektore riadky pri spracovani
 		#region Constants
 		private static string IMAGE_PATH = "../../data/NewImage.txt";
 		private static int IMAGE_WIDTH = 512;
