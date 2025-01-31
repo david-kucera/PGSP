@@ -88,15 +88,6 @@ namespace PGViewer
 			comboBox_File.DataSource = table;
 			comboBox_File.DisplayMember = "File Name";
 			comboBox_File.ValueMember = "File Path";
-
-			//string? selectedString = comboBox_File.SelectedValue as string;
-
-			//if (string.IsNullOrEmpty(selectedString)) return;
-
-			//_imageHeight = (int)numericUpDown_ImageHeight.Value;
-			//_imageWidth = (int)numericUpDown_ImageWidth.Value;
-
-			//ReloadImage();
 		}
 
 		private void ComboBoxFileSelectedIndexChanged(object sender, EventArgs e)
@@ -126,7 +117,7 @@ namespace PGViewer
 
 			if (checkBox_ApplyGaussianBlur.Checked)
 			{
-				_image = Gauss.ApplyGaussianBlur(_image, (double)numericUpDown_SigmaValue.Value);
+				_image = Gauss.ApplyGaussianBlur(_originalImage, (double)numericUpDown_SigmaValue.Value);
 				doubleBufferPanelDrawing.Invalidate();
 			}
 			else
