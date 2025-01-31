@@ -6,6 +6,12 @@ namespace AlgorithmTesterConsole
 {
 	internal class Program
 	{
+		#region Constants
+		private static string IMAGE_PATH = "../../data/NewImage.txt";
+		private static int IMAGE_WIDTH = 512;
+		private static int IMAGE_HEIGHT = 512;
+		#endregion // Constants
+
 		private static void Main()
 		{
 			int replicationCount = 0;
@@ -51,15 +57,15 @@ namespace AlgorithmTesterConsole
 			List<double> thresholdResults = [];
 			List<double> lineCenterResults = [];
 			List<double> bezierResults = [];
-			List<double> sobelResults = [];
+			//List<double> sobelResults = [];
 
 			for (int i = 0; i < replicationCount; i++)
 			{
 				Console.WriteLine(i+1);
 				// Load image
 				sw.Start();
-				var imageBytes = File.ReadAllBytes("../../data/NewImage.txt");
-				GrayscaleImage image = new(512,512, imageBytes);
+				var imageBytes = File.ReadAllBytes(IMAGE_PATH);
+				GrayscaleImage image = new(IMAGE_WIDTH,IMAGE_HEIGHT, imageBytes);
 				sw.Stop();
 				loadResults.Add(sw.Elapsed.TotalMilliseconds);
 				sw.Reset();
@@ -93,11 +99,11 @@ namespace AlgorithmTesterConsole
 				sw.Reset();
 
 				// Apply sobel edge detection
-				sw.Start();
-				image.ApplySobelEdgeDetection();
-				sw.Stop();
-				sobelResults.Add(sw.Elapsed.TotalMilliseconds);
-				sw.Reset();
+				//sw.Start();
+				//image.ApplySobelEdgeDetection();
+				//sw.Stop();
+				//sobelResults.Add(sw.Elapsed.TotalMilliseconds);
+				//sw.Reset();
 			}
 
 			Console.WriteLine();
@@ -107,7 +113,7 @@ namespace AlgorithmTesterConsole
 			Console.WriteLine($"Thresholding: {thresholdResults.Average()} ms");
 			Console.WriteLine($"Find middle line: {lineCenterResults.Average()} ms");
 			Console.WriteLine($"Fit bezier curve: {bezierResults.Average()} ms");
-			Console.WriteLine($"Sobel edge detection: {sobelResults.Average()} ms");
+			//Console.WriteLine($"Sobel edge detection: {sobelResults.Average()} ms");
 			Console.WriteLine();
 		}
 	}
