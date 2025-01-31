@@ -1,13 +1,12 @@
 using System.Data;
-using PGraphicsLib;
 
 namespace PGViewer
 {
 	public partial class Form1 : Form
 	{
 		#region Class members
-		private GrayscaleImage? _image = null;
-		private GrayscaleImage? _originalImage = null;
+		private GrayscaleImageWrapper? _image = null;
+		private GrayscaleImageWrapper? _originalImage = null;
 		private List<PointF> _bezierPoints = [];
 		private List<Point> _centers = [];
 		private int _imageWidth;
@@ -118,7 +117,7 @@ namespace PGViewer
 
 			if (checkBox_ApplyGaussianBlur.Checked)
 			{
-				_image.ApplyGaussianBlur((double)numericUpDown_SigmaValue.Value);
+				_image.Image.ApplyGaussianBlur((double)numericUpDown_SigmaValue.Value);
 				doubleBufferPanelDrawing.Invalidate();
 			}
 			else
@@ -132,7 +131,7 @@ namespace PGViewer
 		{
 			if (!checkBox_ApplyGaussianBlur.Checked) return;
 
-			_image.ApplyGaussianBlur((double)numericUpDown_SigmaValue.Value);
+			_image.Image.ApplyGaussianBlur((double)numericUpDown_SigmaValue.Value);
 			doubleBufferPanelDrawing.Invalidate();
 		}
 
@@ -142,7 +141,7 @@ namespace PGViewer
 
 			if (checkBox_ApplyOtsuThreshold.Checked)
 			{
-				_image.ApplyThreshold();
+				_image.Image.ApplyThreshold();
 				doubleBufferPanelDrawing.Invalidate();
 			}
 			else ReloadImage();
@@ -160,7 +159,7 @@ namespace PGViewer
 
 			if (checkBox_ApplySobelEdge.Checked)
 			{
-				_image.ApplySobelEdgeDetection();
+				_image.Image.ApplySobelEdgeDetection();
 				doubleBufferPanelDrawing.Invalidate();
 			}
 			else ReloadImage();
@@ -172,12 +171,12 @@ namespace PGViewer
 
 			if (checkBox_FitBezierCurve.Checked)
 			{
-				if (!checkBox_ApplySobelEdge.Checked) _centers = _image.ExtractLineCentersBlackLine();
-				else _centers = _image.ExtractLineCentersBetweenWhiteLines();
+				if (!checkBox_ApplySobelEdge.Checked) _centers = _image.Image.ExtractLineCentersBlackLine();
+				else _centers = _image.Image.ExtractLineCentersBetweenWhiteLines();
 
 				if (_centers.Count < 2)
 					return;
-				_bezierPoints = Bezier.FitCubicBezierCurve(_centers);
+				_bezierPoints = _image.Image.FitCubicBezierCurve(_centers);
 				doubleBufferPanelDrawing.Invalidate();
 			}
 			else
@@ -214,8 +213,8 @@ namespace PGViewer
 			try
 			{
 				var imageBytes = File.ReadAllBytes(selectedString);
-				_image = new GrayscaleImage(_imageWidth, _imageHeight, imageBytes);
-				_originalImage = new GrayscaleImage(_imageWidth, _imageHeight, imageBytes);
+				_image = new GrayscaleImageWrapper(_imageWidth, _imageHeight, imageBytes);
+				_originalImage = new GrayscaleImageWrapper(_imageWidth, _imageHeight, imageBytes);
 			}
 			catch (Exception ex)
 			{
