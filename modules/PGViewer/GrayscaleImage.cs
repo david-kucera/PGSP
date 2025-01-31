@@ -65,20 +65,25 @@ namespace PGViewer
 			_data = Gauss.ApplyGaussianBlur(_width, _height, _data, sigma);
 		}
 
-		public List<Point> ExtractLineCenters()
+		public List<Point> ExtractLineCentersBlackLine()
 		{
-			return MiddlelineExtractor.Extract(_width, _height, _data);
+			return MiddlelineExtractor.ExtractBlackLine(_width, _height, _data);
+		}
+
+		public List<Point> ExtractLineCentersBetweenWhiteLines()
+		{
+			return MiddlelineExtractor.ExtractBetweenWhiteLines(_width, _height, _data);
 		}
 
 		public void ApplyThreshold()
 		{
-			int threshold = Otsu.Threshold(_width, _height, _data);
+			int threshold = Threshold.AverageThreshold(_width, _height, _data);
 			for (int i = 0; i < _data.Length; i++) _data[i] = _data[i] > threshold ? (byte)255 : (byte)0;
 		}
 
 		public void ApplySobelEdgeDetection()
 		{
-			_data = Sobel.Apply(_width, _height, _data);
+			_data = Sobel.ApplyEdgeDetection(_width, _height, _data);
 		}
 		#endregion //Public functions
 	}

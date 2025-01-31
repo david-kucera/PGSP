@@ -1,8 +1,8 @@
 ﻿namespace PGraphicsLib
 {
-	public static class Otsu
+	public static class Threshold
 	{
-		public static int Threshold(int width, int height, byte[] data)
+		public static int OtsuThreshold(int width, int height, byte[] data)
 		{
 			int[] histogram = new int[256];
 			for (int i = 0; i < data.Length; i++) histogram[data[i]]++;
@@ -38,6 +38,25 @@
 			}
 
 			return threshold;
+		}
+
+		public static int AverageThreshold(int width, int height, byte[] data)
+		{
+			int totalPixels = width * height;
+			int sum = 0;
+
+			for (int y = 0; y < height; y++)
+			{
+				int rowSum = 0;
+				for (int x = 0; x < width; x++)
+				{
+					rowSum += data[y * width + x];
+				}
+
+				sum += rowSum;
+			}
+
+			return sum / totalPixels;
 		}
 	}
 }

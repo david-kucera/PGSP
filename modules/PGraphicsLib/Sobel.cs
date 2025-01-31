@@ -31,7 +31,7 @@
 		#endregion // Constants
 
 		#region Public functions
-		public static byte[] Apply(int width, int height, byte[] data)
+		public static byte[] ApplyEdgeDetection(int width, int height, byte[] data)
 		{
 			byte[] newData = new byte[width * height];
 

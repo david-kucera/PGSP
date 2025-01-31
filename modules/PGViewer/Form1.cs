@@ -172,7 +172,9 @@ namespace PGViewer
 
 			if (checkBox_FitBezierCurve.Checked)
 			{
-				_centers = _image.ExtractLineCenters();
+				if (!checkBox_ApplySobelEdge.Checked) _centers = _image.ExtractLineCentersBlackLine();
+				else _centers = _image.ExtractLineCentersBetweenWhiteLines();
+
 				if (_centers.Count < 2)
 					return;
 				_bezierPoints = Bezier.FitCubicBezierCurve(_centers);

@@ -4,7 +4,7 @@ namespace PGraphicsLib
 {
 	public class MiddlelineExtractor
 	{
-		public static List<Point> Extract(int width, int height, byte[] data)
+		public static List<Point> ExtractBetweenWhiteLines(int width, int height, byte[] data)
 		{
 			List<Point> midline = [];
 
@@ -59,6 +59,31 @@ namespace PGraphicsLib
 			}
 
 			return midline;
+		}
+
+		public static List<Point> ExtractBlackLine(int width, int height, byte[] data)
+		{
+			var centers = new List<Point>();
+
+			for (int y = 0; y < height; y++)
+			{
+				var blackPixels = new List<int>();
+				for (int x = 0; x < width; x++)
+				{
+					if (data[y * width + x] == 0)
+					{
+						blackPixels.Add(x);
+					}
+				}
+
+				if (blackPixels.Count > 0)
+				{
+					int midX = (int)blackPixels.Average();
+					centers.Add(new Point(midX, y));
+				}
+			}
+
+			return centers;
 		}
 	}
 }
