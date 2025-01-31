@@ -1,4 +1,6 @@
-﻿namespace PGViewer
+﻿using System.Drawing;
+
+namespace PGraphicsLib
 {
 	public static class Bezier
 	{

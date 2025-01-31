@@ -1,4 +1,4 @@
-﻿namespace PGViewer
+﻿namespace PGraphicsLib
 {
 	public class Gauss
 	{
@@ -7,15 +7,12 @@
 		#endregion // Constants
 
 		#region Public functions
-		public static GrayscaleImage ApplyGaussianBlur(GrayscaleImage inputImage, double sigma = 1.0)
+		public static byte[] ApplyGaussianBlur(int width, int height, byte[] inputData, double sigma = 1.0)
 		{
 			const int halfKernel = KERNEL_SIZE / 2;
 			double[,] kernel = GenerateGaussianKernel(sigma);
 			double kernelSum = kernel.Cast<double>().Sum();
 
-			int width = inputImage.Width;
-			int height = inputImage.Height;
-			byte[] inputData = inputImage.Data;
 			byte[] outputData = new byte[width * height];
 
 			for (int y = 0; y < height; y++)
@@ -40,7 +37,7 @@
 				}
 			}
 
-			return new GrayscaleImage(width, height, outputData);
+			return outputData;
 		}
 		#endregion // Public functions
 

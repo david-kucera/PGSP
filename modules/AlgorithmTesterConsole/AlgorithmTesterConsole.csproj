@@ -13,4 +13,8 @@
 	<Platforms>x64;x86</Platforms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PGraphicsLib\PGraphicsLib.csproj" />
+  </ItemGroup>
+
 </Project>

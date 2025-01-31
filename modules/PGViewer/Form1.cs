@@ -1,4 +1,5 @@
 using System.Data;
+using PGraphicsLib;
 
 namespace PGViewer
 {
@@ -117,7 +118,7 @@ namespace PGViewer
 
 			if (checkBox_ApplyGaussianBlur.Checked)
 			{
-				_image = Gauss.ApplyGaussianBlur(_originalImage, (double)numericUpDown_SigmaValue.Value);
+				_image.ApplyGaussianBlur((double)numericUpDown_SigmaValue.Value);
 				doubleBufferPanelDrawing.Invalidate();
 			}
 			else
@@ -131,7 +132,7 @@ namespace PGViewer
 		{
 			if (!checkBox_ApplyGaussianBlur.Checked) return;
 
-			_image = Gauss.ApplyGaussianBlur(_image, (double)numericUpDown_SigmaValue.Value);
+			_image.ApplyGaussianBlur((double)numericUpDown_SigmaValue.Value);
 			doubleBufferPanelDrawing.Invalidate();
 		}
 
