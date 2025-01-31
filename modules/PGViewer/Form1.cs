@@ -34,19 +34,19 @@ namespace PGViewer
 				// Image histogram
 				if (checkBox_ShowHistograms.Checked)
 				{
-					Bitmap histogramBmp = _image.HistogramToBitmap(512, 150);
-					g.DrawImage(histogramBmp, 0, 512);
+					Bitmap histogramBmp = _image.HistogramToBitmap(640, 150);
+					g.DrawImage(histogramBmp, 0, 640);
 				}
 
 				// Original image
 				Bitmap originalImage = _originalImage.ToBitmap();
-				g.DrawImage(originalImage, 522, 0);
+				g.DrawImage(originalImage, 650, 0);
 
 				// Original image histogram
 				if (checkBox_ShowHistograms.Checked)
 				{
-					Bitmap processedHistogramBmp = _originalImage.HistogramToBitmap(512, 150);
-					g.DrawImage(processedHistogramBmp, 522, 512);
+					Bitmap processedHistogramBmp = _originalImage.HistogramToBitmap(640, 150);
+					g.DrawImage(processedHistogramBmp, 650, 640);
 				}
 
 				// Bezier curve
@@ -89,14 +89,14 @@ namespace PGViewer
 			comboBox_File.DisplayMember = "File Name";
 			comboBox_File.ValueMember = "File Path";
 
-			string? selectedString = comboBox_File.SelectedValue as string;
+			//string? selectedString = comboBox_File.SelectedValue as string;
 
-			if (string.IsNullOrEmpty(selectedString)) return;
+			//if (string.IsNullOrEmpty(selectedString)) return;
 
-			_imageHeight = (int)numericUpDown_ImageHeight.Value;
-			_imageWidth = (int)numericUpDown_ImageWidth.Value;
+			//_imageHeight = (int)numericUpDown_ImageHeight.Value;
+			//_imageWidth = (int)numericUpDown_ImageWidth.Value;
 
-			ReloadImage();
+			//ReloadImage();
 		}
 
 		private void ComboBoxFileSelectedIndexChanged(object sender, EventArgs e)
@@ -105,19 +105,19 @@ namespace PGViewer
 			checkBox_FitBezierCurve.Checked = false;
 			checkBox_ApplySobelEdge.Checked = false;
 			checkBox_ApplyOtsuThreshold.Checked = false;
+			_imageHeight = (int)numericUpDown_ImageHeight.Value;
+			_imageWidth = (int)numericUpDown_ImageWidth.Value;
 			ReloadImage();
 		}
 
 		private void UpDownNum_ImageWidth_Changed(object sender, EventArgs e)
 		{
 			_imageWidth = (int)numericUpDown_ImageWidth.Value;
-			ReloadImage();
 		}
 
 		private void UpDownNum_ImageHeight_Changed(object sender, EventArgs e)
 		{
 			_imageHeight = (int)numericUpDown_ImageHeight.Value;
-			ReloadImage();
 		}
 
 		private void CheckBox_ApplyGaussianBlur_Changed(object sender, EventArgs e)

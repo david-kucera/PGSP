@@ -9,7 +9,7 @@
 		#region Public functions
 		public static GrayscaleImage ApplyGaussianBlur(GrayscaleImage inputImage, double sigma = 1.0)
 		{
-			int halfKernel = KERNEL_SIZE / 2;
+			const int halfKernel = KERNEL_SIZE / 2;
 			double[,] kernel = GenerateGaussianKernel(sigma);
 			double kernelSum = kernel.Cast<double>().Sum();
 
@@ -48,7 +48,7 @@
 		private static double[,] GenerateGaussianKernel(double sigma)
 		{
 			double[,] kernel = new double[KERNEL_SIZE, KERNEL_SIZE];
-			int halfSize = KERNEL_SIZE / 2;
+			const int halfSize = KERNEL_SIZE / 2;
 			double sum = 0;
 			double sigma2 = 2 * sigma * sigma;
 			double piSigma2 = Math.PI * sigma2;

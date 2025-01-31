@@ -183,7 +183,7 @@
 			numericUpDown_ImageHeight.Name = "numericUpDown_ImageHeight";
 			numericUpDown_ImageHeight.Size = new Size(69, 31);
 			numericUpDown_ImageHeight.TabIndex = 2;
-			numericUpDown_ImageHeight.Value = new decimal(new int[] { 512, 0, 0, 0 });
+			numericUpDown_ImageHeight.Value = new decimal(new int[] { 480, 0, 0, 0 });
 			numericUpDown_ImageHeight.ValueChanged += UpDownNum_ImageHeight_Changed;
 			// 
 			// numericUpDown_ImageWidth
@@ -194,10 +194,10 @@
 			numericUpDown_ImageWidth.Name = "numericUpDown_ImageWidth";
 			numericUpDown_ImageWidth.Size = new Size(69, 31);
 			numericUpDown_ImageWidth.TabIndex = 1;
-			numericUpDown_ImageWidth.Value = new decimal(new int[] { 512, 0, 0, 0 });
+			numericUpDown_ImageWidth.Value = new decimal(new int[] { 640, 0, 0, 0 });
 			numericUpDown_ImageWidth.ValueChanged += UpDownNum_ImageWidth_Changed;
 			// 
-			// comboBox1
+			// comboBox_File
 			// 
 			comboBox_File.FormattingEnabled = true;
 			comboBox_File.Location = new Point(28, 30);
@@ -213,7 +213,7 @@
 			doubleBufferPanelDrawing.Location = new Point(256, 0);
 			doubleBufferPanelDrawing.Margin = new Padding(4, 5, 4, 5);
 			doubleBufferPanelDrawing.Name = "doubleBufferPanelDrawing";
-			doubleBufferPanelDrawing.Size = new Size(1202, 864);
+			doubleBufferPanelDrawing.Size = new Size(1322, 864);
 			doubleBufferPanelDrawing.TabIndex = 1;
 			doubleBufferPanelDrawing.Paint += doubleBufferPanelDrawing_Paint;
 			// 
@@ -221,7 +221,7 @@
 			// 
 			AutoScaleDimensions = new SizeF(10F, 25F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(1458, 864);
+			ClientSize = new Size(1578, 864);
 			Controls.Add(doubleBufferPanelDrawing);
 			Controls.Add(panelTools);
 			Margin = new Padding(4, 5, 4, 5);

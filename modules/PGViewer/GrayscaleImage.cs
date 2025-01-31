@@ -3,10 +3,10 @@
 	public class GrayscaleImage
 	{
 		#region Properties
-		public int Width { get; set; }
-		public int Height { get; set; }
-		public byte[] Data { get; set; }
-		public int[] Histogram { get; set; } = new int[256];
+		public int Width { get; }
+		public int Height { get; }
+		public byte[] Data { get; private set; }
+		private int[] Histogram { get; set; } = new int[256];
 		#endregion //Properties
 
 		#region Constructors
@@ -20,16 +20,6 @@
 			Width = width;
 			Height = height;
 			Data = data;
-		}
-
-		public GrayscaleImage(int width, int height)
-		{
-			if (width < 16 || height < 16 || width > 1024 || height > 1024)
-				throw new ArgumentException("Grayscale image is out of size");
-
-			Width = width;
-			Height = height;
-			Data = new byte[width * height];
 		}
 		#endregion //Constructors
 
