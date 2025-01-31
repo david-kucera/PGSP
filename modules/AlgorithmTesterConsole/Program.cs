@@ -114,6 +114,19 @@ namespace AlgorithmTesterConsole
 			Console.WriteLine($"Find middle line: {lineCenterResults.Average()} ms");
 			Console.WriteLine($"Fit bezier curve: {bezierResults.Average()} ms");
 			//Console.WriteLine($"Sobel edge detection: {sobelResults.Average()} ms");
+
+			// Save data to csv
+			if (saveResults)
+			{
+				string path = "../../output/results.csv";
+				if (!Directory.Exists("../../output")) Directory.CreateDirectory("../../output");
+				if (!File.Exists(path))
+				{
+					File.Create(path).Close();
+					File.WriteAllText(path, "Load,Gauss,Threshold,LineCenter,Bezier\n");
+				}
+				File.AppendAllText(path, $"{loadResults.Average()},{gaussResults.Average()},{thresholdResults.Average()},{lineCenterResults.Average()},{bezierResults.Average()}\n");
+			}
 			Console.WriteLine();
 		}
 	}
