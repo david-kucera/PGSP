@@ -2,7 +2,7 @@
 
 namespace PGraphicsLib
 {
-	public class MiddlelineExtractor
+	public static class MiddlelineExtractor
 	{
 		public static List<Point> ExtractBetweenWhiteLines(int width, int height, byte[] data)
 		{

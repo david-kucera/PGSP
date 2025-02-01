@@ -1,6 +1,6 @@
 ﻿namespace PGraphicsLib
 {
-	public class Sobel
+	public static class Sobel
 	{
 		#region Constants
 		private static int[,] X

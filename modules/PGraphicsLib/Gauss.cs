@@ -1,6 +1,6 @@
 ﻿namespace PGraphicsLib
 {
-	public class Gauss
+	public static class Gauss
 	{
 		#region Constants
 		private const int KERNEL_SIZE = 3;

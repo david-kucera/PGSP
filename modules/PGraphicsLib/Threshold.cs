@@ -40,7 +40,7 @@
 			return threshold;
 		}
 
-		public static int AverageThreshold(int width, int height, byte[] data)
+		public static int MeanThreshold(int width, int height, byte[] data)
 		{
 			int totalPixels = width * height;
 			int sum = 0;
