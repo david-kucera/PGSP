@@ -7,14 +7,14 @@ namespace AlgorithmTesterConsole
 	internal class Program
 	{
 		// TODO cyklicke spracovanie vsetkych fotiek v priecinku data
-		// TODO moznost preskocit niektore riadky pri spracovani
 		#region Constants
 		private static string IMAGE_PATH = "../../data/NewImage.txt";
 		private static int IMAGE_WIDTH = 512;
 		private static int IMAGE_HEIGHT = 512;
-		#endregion // Constants
+		private static int PROCESS_EVERY_NTH_LINE = 10; // If 0, process all lines
+        #endregion // Constants
 
-		private static void Main()
+        private static void Main()
 		{
 			int replicationCount = 0;
 			bool saveResults = false;
@@ -64,10 +64,28 @@ namespace AlgorithmTesterConsole
 			for (int i = 0; i < replicationCount; i++)
 			{
 				Console.WriteLine(i+1);
-				// Load image
-				sw.Start();
+
+                // Load image with optional skip rows
+                sw.Start();
 				var imageBytes = File.ReadAllBytes(IMAGE_PATH);
-				GrayscaleImage image = new(IMAGE_WIDTH,IMAGE_HEIGHT, imageBytes);
+                GrayscaleImage image = new(IMAGE_WIDTH, IMAGE_HEIGHT, imageBytes);
+
+                if (PROCESS_EVERY_NTH_LINE > 0)
+				{
+					int rowSize = IMAGE_WIDTH;
+					List<byte> bytes = [];
+                    for (int j = 0; j < IMAGE_HEIGHT; j++)
+					{
+						if ((j % PROCESS_EVERY_NTH_LINE) == 0)
+                        {
+                            bytes.AddRange(imageBytes.Skip(j * rowSize).Take(rowSize));
+                        }
+                    }
+					int newHeight = bytes.Count / IMAGE_WIDTH;
+
+					image = new(IMAGE_WIDTH, newHeight, bytes.ToArray());
+                }
+                
 				sw.Stop();
 				loadResults.Add(sw.Elapsed.TotalMilliseconds);
 				sw.Reset();
