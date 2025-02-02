@@ -2,7 +2,7 @@ using System.Data;
 
 namespace PGViewer
 {
-	public partial class Form1 : Form
+	public partial class PGSP : Form
 	{
 		#region Class members
 		private GrayscaleImageWrapper? _image = null;
@@ -14,7 +14,7 @@ namespace PGViewer
 		#endregion // Class members
 
 		#region Constructor
-		public Form1()
+		public PGSP()
 		{
 			InitializeComponent();
 		}

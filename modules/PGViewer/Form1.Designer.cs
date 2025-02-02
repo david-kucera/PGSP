@@ -1,6 +1,6 @@
 ﻿namespace PGViewer
 {
-    partial class Form1
+    partial class PGSP
     {
         /// <summary>
         ///  Required designer variable.
@@ -217,7 +217,7 @@
 			doubleBufferPanelDrawing.TabIndex = 1;
 			doubleBufferPanelDrawing.Paint += doubleBufferPanelDrawing_Paint;
 			// 
-			// Form1
+			// PGSP
 			// 
 			AutoScaleDimensions = new SizeF(10F, 25F);
 			AutoScaleMode = AutoScaleMode.Font;
@@ -225,8 +225,8 @@
 			Controls.Add(doubleBufferPanelDrawing);
 			Controls.Add(panelTools);
 			Margin = new Padding(4, 5, 4, 5);
-			Name = "Form1";
-			Text = "Form1";
+			Name = "PGSP";
+			Text = "PGSP";
 			Load += Form1_Load;
 			panelTools.ResumeLayout(false);
 			panelTools.PerformLayout();

@@ -17,7 +17,7 @@ namespace AlgorithmTesterConsole
 
         private static int IMAGE_WIDTH = 512;
 		private static int IMAGE_HEIGHT = 512;
-		private static int PROCESS_EVERY_NTH_LINE = 10; // If 0, process all lines
+		private static int PROCESS_EVERY_NTH_LINE = 0; // If 0, process all lines
         #endregion // Constants
 
         private static void Main()

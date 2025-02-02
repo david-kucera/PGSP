@@ -44,6 +44,7 @@ namespace PGraphicsLib
 		public void ApplyThreshold()
 		{
 			int threshold = Threshold.MeanThreshold(Width, Height, Data);
+			//int threshold = Threshold.OtsuThreshold(Width, Height, Data);
 			for (int i = 0; i < Data.Length; i++) Data[i] = Data[i] > threshold ? (byte)255 : (byte)0;
 		}
 
