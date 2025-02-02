@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using PGraphicsLib;
 
 namespace AlgorithmTesterConsole
@@ -7,17 +8,21 @@ namespace AlgorithmTesterConsole
 	internal class Program
 	{
 		#region Constants
-		private static string IMAGE_PATH = "../../data/NewImage.txt";
-		private static string DIRECTORY_PATH = "../../data";
-		private static bool SAVE_RESULTS = false;
+        private static string IMAGE_NAME = "NewImage";
+        private static string DIRECTORY_PATH = "../../data/";
+		private static string IMAGE_PATH = $"{DIRECTORY_PATH}{IMAGE_NAME}.txt";
+		
+		private static bool SAVE_RESULTS = true;
+        private static int NUMBER_OF_REPLICATIONS = 10;
+
         private static int IMAGE_WIDTH = 512;
 		private static int IMAGE_HEIGHT = 512;
-		private static int PROCESS_EVERY_NTH_LINE = 0; // If 0, process all lines
+		private static int PROCESS_EVERY_NTH_LINE = 10; // If 0, process all lines
         #endregion // Constants
 
         private static void Main()
 		{
-			int replicationCount = 0;
+			int runCount = 0;
 			bool runCyclically = false;
 
 			while (true)
@@ -36,8 +41,8 @@ namespace AlgorithmTesterConsole
                     if (input.Equals("c")) runCyclically = true;
 					else 
 					{
-						replicationCount = int.Parse(input);
-						if (replicationCount < 1) continue;
+						runCount = int.Parse(input);
+						if (runCount < 1) continue;
 					}
                     break;
 				}
@@ -47,10 +52,16 @@ namespace AlgorithmTesterConsole
 				}
 			}
 
-			Console.WriteLine($"Run details: {replicationCount} replications, run cyclically: {runCyclically}");
+			Console.WriteLine($"Run details: {runCount} runs, run cyclically: {runCyclically}");
 
-            if (!runCyclically) Replications(replicationCount);
-            else Cyclically();
+            if (!runCyclically)
+            {
+	            for (int i = 0; i < NUMBER_OF_REPLICATIONS; i++) Replications(runCount);
+            }
+            else
+            {
+				for (int i = 0; i < NUMBER_OF_REPLICATIONS; i++) Cyclically();
+            }
 		}
 
         private static void Cyclically()
@@ -153,15 +164,19 @@ namespace AlgorithmTesterConsole
             // Save data to csv
             if (SAVE_RESULTS)
             {
-                string path = "../../output/results.csv";
+                string path = "../../output/resultsCyclical.csv";
                 if (!Directory.Exists("../../output")) Directory.CreateDirectory("../../output");
                 if (!File.Exists(path))
                 {
                     File.Create(path).Close();
-                    File.WriteAllText(path, "Load,Gauss,Threshold,LineCenter,Bezier\n");
+                    File.WriteAllText(path, "Load;Gauss;Threshold;LineCenter;Bezier\n");
                 }
-                File.AppendAllText(path, $"{loadResults.Average()},{gaussResults.Average()},{thresholdResults.Average()},{lineCenterResults.Average()},{bezierResults.Average()}\n");
-            }
+				string line = string.Format(CultureInfo.InvariantCulture,
+					"{0};{1};{2};{3};{4}\n",
+					loadResults.Average(), gaussResults.Average(), thresholdResults.Average(),
+					lineCenterResults.Average(), bezierResults.Average());
+                File.AppendAllText(path, line);
+			}
             Console.WriteLine();
         }
 
@@ -252,15 +267,19 @@ namespace AlgorithmTesterConsole
             // Save data to csv
             if (SAVE_RESULTS)
             {
-                string path = "../../output/results.csv";
+                string path = $"../../output/resultsReplications_{IMAGE_NAME}.csv";
                 if (!Directory.Exists("../../output")) Directory.CreateDirectory("../../output");
                 if (!File.Exists(path))
                 {
                     File.Create(path).Close();
-                    File.WriteAllText(path, "Load,Gauss,Threshold,LineCenter,Bezier\n");
+                    File.WriteAllText(path, "Load;Gauss;Threshold;LineCenter;Bezier\n");
                 }
-                File.AppendAllText(path, $"{loadResults.Average()},{gaussResults.Average()},{thresholdResults.Average()},{lineCenterResults.Average()},{bezierResults.Average()}\n");
-            }
+				string line = string.Format(CultureInfo.InvariantCulture,
+					"{0};{1};{2};{3};{4}\n",
+					loadResults.Average(), gaussResults.Average(), thresholdResults.Average(),
+					lineCenterResults.Average(), bezierResults.Average());
+				File.AppendAllText(path, line);
+			}
             Console.WriteLine();
         }
     }
