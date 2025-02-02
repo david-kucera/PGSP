@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Globalization;
 using PGraphicsLib;
 
-namespace AlgorithmTesterConsole
+namespace PGTester
 {
 	internal class Program
 	{
